@@ -95,9 +95,9 @@ class ProviderService extends ChangeNotifier {
     notifyListeners();
   }
 
-  getProductListByType(int categoryId) async {
+  getProductListByType(int categoryId, String name_pro) async {
     selectProductType = categoryId;
-    products = await ProductApi().getProductListByType(categoryId);
+    products = await ProductApi().getProductListByType(categoryId, name_pro);
     notifyListeners();
   }
 
@@ -221,13 +221,9 @@ class ProviderService extends ChangeNotifier {
     }
   }
 
-  Future<bool> searchhProduct(String name_pro) async {
-    final isSuccess = await ProductApi().searchProduct(name_pro);
-    if (isSuccess == true) {
-      getCartList();
-      return true;
-    } else {
-      return false;
-    }
+  searchProductName(String name_pro) async {
+    products = await ProductApi().searchProductName(name_pro);
+    // getProductList();
+    notifyListeners();
   }
 }

@@ -14,7 +14,8 @@ class ShowProductPage extends StatefulWidget {
 }
 
 class _ShowProductPageState extends State<ShowProductPage> {
-  TextEditingController SearchController = TextEditingController();
+  final SearchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final providerService = Provider.of<ProviderService>(context);
@@ -53,9 +54,14 @@ class _ShowProductPageState extends State<ShowProductPage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       // final id = SearchController.text;
-                      providerService.searchhProduct(SearchController.text);
+                      int selectProductType = 0;
+                      setState(() {
+                        providerService.getProductListByType(
+                            int.parse(selectProductType.toString()),
+                            SearchController.text);
+                      });
                     },
                     child: Container(
                       height: 50,
@@ -99,7 +105,8 @@ class _ShowProductPageState extends State<ShowProductPage> {
                     return GestureDetector(
                       onTap: () {
                         providerService.getProductListByType(
-                            int.parse(item.idType.toString()));
+                            int.parse(item.idType.toString()),
+                            item.nameType.toString());
                       },
                       child: Container(
                         margin: EdgeInsets.only(right: 8),
@@ -261,8 +268,8 @@ class _ShowProductPageState extends State<ShowProductPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Image.network(
-                                          // "${data![index].image}",
-                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR_5N9A7v2mELkWWDP1MYIrNy4kz8pzoFDBg&usqp=CAU",
+                                          "${data.picture}",
+                                          // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR_5N9A7v2mELkWWDP1MYIrNy4kz8pzoFDBg&usqp=CAU",
                                           fit: BoxFit.cover,
                                           width: double.infinity,
                                         ),

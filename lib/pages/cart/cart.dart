@@ -85,8 +85,7 @@ class _CartPageState extends State<CartPage> {
                                                   "assets/images/loading_plaholder.gif"),
                                               width: 85,
                                               image: NetworkImage(
-                                                  // item.picture.toString()
-                                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR_5N9A7v2mELkWWDP1MYIrNy4kz8pzoFDBg&usqp=CAU"),
+                                                  item.picture.toString()),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -239,7 +238,6 @@ class _CartPageState extends State<CartPage> {
                   backgroundColor: Colors.green, foregroundColor: Colors.white),
               onPressed: carts.length > 0
                   ? () async {
-                      
                       // Navigator.pushNamed(
                       //   context,
                       //   'order',

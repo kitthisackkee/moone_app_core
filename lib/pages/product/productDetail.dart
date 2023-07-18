@@ -77,17 +77,35 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 //   height: 20,
                                 // ),
                                 Container(
-                                  child: ClipRRect(
-                                    // borderRadius: BorderRadius.circular(8),
-                                    child: FadeInImage(
-                                      width: MediaQuery.of(context).size.width,
-                                      placeholder: AssetImage(
-                                          "assets/images/loading_plaholder.gif"),
-                                      image: NetworkImage(
-                                          // item.picture.toString(),
-                                          "https://img.freepik.com/free-psd/tote-bag_125540-368.jpg?w=900&t=st=1689174350~exp=1689174950~hmac=36ed95054c2d72271dfab9eee3fc8981d468cae12b5834dd9940a8fe79f782b8"),
+                                  // width: 300,
+                                  child: FadeInImage(
+                                    width: MediaQuery.of(context).size.width,
+                                    placeholder: AssetImage(
+                                        "assets/images/loading_plaholder.gif"),
+                                    image: NetworkImage(
+                                      item.picture.toString(),
                                     ),
+                                    fit: BoxFit.cover,
+                                    // height: 300,
+                                    height:
+                                        MediaQuery.of(context).size.height / 2,
                                   ),
+                                  // height: 200,
+                                  // child: ClipRRect(
+                                  //   // borderRadius: BorderRadius.circular(8),
+                                  //   child: FadeInImage(
+                                  //     width: MediaQuery.of(context).size.width,
+                                  //     placeholder: AssetImage(
+                                  //         "assets/images/loading_plaholder.gif"),
+                                  //     image: NetworkImage(
+                                  //       item.picture.toString(),
+                                  //     ),
+                                  //     fit: BoxFit.cover, height: 300,
+                                  //     // height:
+                                  //     //     MediaQuery.of(context).size.height /
+                                  //     //         3,
+                                  //   ),
+                                  // ),
                                 ),
                                 SizedBox(
                                   height: 20,

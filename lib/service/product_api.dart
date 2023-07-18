@@ -50,10 +50,11 @@ class ProductApi {
     }
   }
 
-  Future<List<ProductModel>> getProductListByType(int categoryId) async {
+  Future<List<ProductModel>> getProductListByType(
+      int categoryId, String name_pro) async {
     List<ProductModel> products = [];
     final http.Response response = await http.get(
-        Uri.parse('${baseUrl.toString()}/product/${categoryId}'),
+        Uri.parse('${baseUrl.toString()}/product/${categoryId}/${name_pro}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           "Accept": "application/json",
@@ -220,21 +221,22 @@ class ProductApi {
     }
   }
 
-  Future<bool> searchProduct(String name_pro) async {
-    final http.Response response = await http.post(
-        Uri.parse('${baseUrl.toString()}/product/search-product'),
+  Future<List<ProductModel>> searchProductName(String name_pro) async {
+    List<ProductModel> products = [];
+    final http.Response response = await http.get(
+        Uri.parse('${baseUrl.toString()}/product/${name_pro}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           "Accept": "application/json",
-        },
-        body: jsonEncode(<String, String>{
-          'name_pro': name_pro,
-        }));
+        });
 
     if (response.statusCode == 200) {
-      return true;
+      products = (json.decode(response.body) as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+      return products;
     } else {
-      return false;
+      throw Exception('Failed to book');
     }
   }
 }
