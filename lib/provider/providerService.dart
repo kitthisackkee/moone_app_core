@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart';
+
 import 'package:moone_app/models/cartModel.dart';
 import 'package:moone_app/models/productModel.dart';
 import 'package:moone_app/models/productType.dart';
@@ -125,28 +125,34 @@ class ProviderService extends ChangeNotifier {
   // }
 
   Future<bool> addCart(String id_pro, String qty, String price) async {
+   
     String? id = await storage.read(key: "id_sale");
     print("=========id1" + id.toString());
     if (id == null || id == "") {
-      await storage.write(key: "id_sale", value: bill.toString());
+      await storage.delete(key: "id_sale");
+      await storage.write(key: "id_sale", value: _bill.toString());
       final isSuccess =
-          await ProductApi().addCart(bill.toString(), id_pro, qty, price);
+          await ProductApi().addCart(_bill.toString(), id_pro, qty, price);
       if (isSuccess == true) {
-        final data = bill.toString();
+        final data = _bill.toString();
         print("==>>>>>>>>>>>>>>DAta2:" + data.toString());
+        notifyListeners();
         return true;
       }
-    }
-    final isSuccess =
-        await ProductApi().addCart(id.toString(), id_pro, qty, price);
-
-    if (isSuccess == true) {
-      final data = id.toString();
-      print("==>>>>>>>>>>>>>>DAta3:" + data.toString());
-      return true;
     } else {
-      return false;
+      final isSuccess =
+          await ProductApi().addCart(id.toString(), id_pro, qty, price);
+
+      if (isSuccess == true) {
+        final data = id.toString();
+        print("==>>>>>>>>>>>>>>DAta3:" + data.toString());
+        notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 
   getCartList() async {
@@ -214,7 +220,8 @@ class ProviderService extends ChangeNotifier {
         id.toString(), total, name, tell, village, district, province);
     if (isSuccess == true) {
       await storage.delete(key: "id_sale").toString();
-
+      print("======Del ID: " + id.toString());
+      notifyListeners();
       return true;
     } else {
       return false;

@@ -199,7 +199,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                         DialogType.success,
                                                     animType:
                                                         AnimType.rightSlide,
-                                                    title: 'ແຈ້ງເຕືອນ',
+                                                    title: 'ສຳເລັດ',
                                                     desc:
                                                         'ເພິ່ມສິນຄ້າໃສ່ກະຕ່າສຳເລັດ',
                                                     autoHide:

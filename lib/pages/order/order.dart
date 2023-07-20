@@ -41,7 +41,7 @@ class _OrderPageState extends State<OrderPage> {
     // totalPrice();
   }
 
-  void bill_id() async {
+  bill_id() async {
     var _id = await storage.read(key: "id_sale");
     setState(() {
       id = _id;
@@ -109,7 +109,7 @@ class _OrderPageState extends State<OrderPage> {
                 ),
                 Center(
                   child: Text(
-                    "ໄວ້ເພື່ອກວດສອບສິນຄ້າຂອງທ່ານ.${id.toString()}",
+                    "ໄວ້ເພື່ອກວດສອບສິນຄ້າຂອງທ່ານ.${id}",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -257,26 +257,25 @@ class _OrderPageState extends State<OrderPage> {
                           context: context,
                           dialogType: DialogType.success,
                           animType: AnimType.rightSlide,
-                          title: 'ແຈ້ງເຕືອນ',
+                          title: 'ສຳເລັດ',
                           desc: 'ສັ່ງຊື້ສຳເລັດ',
                           // autoHide: Duration(seconds: 2),
                           btnCancelOnPress: () {},
                           btnOkOnPress: () async {
-                            id = storage.delete(key: "id_sale").toString();
+                            await storage.delete(key: "id_sale").toString();
+                            // print("==========> bill clear" + id.toString());
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 'home', (Route<dynamic> route) => false);
-                            providerService.getCartList();
+                            // providerService.getCartList();
                           },
                         )..show();
-                        id.toString();
+                        // id.toString();
                         nameController.text = "";
                         telController.text = "";
                         addressController.text = "";
                         districtController.text = "";
                         provinceController.text = "";
                         // await storage.deleteAll();
-                        print("==========> bill clear" +
-                            providerService.bill.toString());
                       } else {
                         AwesomeDialog(
                           context: context,
